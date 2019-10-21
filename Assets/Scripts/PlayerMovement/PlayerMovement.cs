@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 change;
     private Animator animator;
 
+	public GameObject crosshair;
+	public GameObject player;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -23,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
         UpdateAnimationAndMove();
+		Aim();
     }
 
     void UpdateAnimationAndMove()
@@ -46,4 +50,9 @@ public class PlayerMovement : MonoBehaviour
             transform.position + change * speed * Time.deltaTime
         );
     }
+
+	void Aim()
+	{
+		crosshair.transform = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+	}
 }
