@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - Arrow
-  - 
+  - Bullet
+  - Item
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: arrow
     uniqueID: 2568210639
+    locked: 0
+  - name: item
+    uniqueID: 3420399521
     locked: 0

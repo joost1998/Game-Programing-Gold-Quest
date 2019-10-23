@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +14,17 @@ public class PlayerMovement : MonoBehaviour
 	private int health;
 
 	public GameObject crosshair;
+
 	public GameObject player;
 	public GameObject shootImage;
+
+	public IList<GameObject> ItemList;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
+		ItemList = new List<GameObject>();
 		Cursor.visible = false;
 	}
 
@@ -71,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			GameObject bullet = Instantiate(shootImage, transform.position, Quaternion.identity);
 			bullet.GetComponent<Bullet>().sender = "Player";
+			bullet.GetComponent<Bullet>().target = gameObject;
 			bullet.GetComponent<Rigidbody2D>().velocity = shootingDirection * 6.0f;
 			bullet.transform.Rotate(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
 			Destroy(bullet, 2.0f);
@@ -89,5 +95,21 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Debug.Log("Player dead");
 		}
+	}
+
+	public void addAppleItem(GameObject apple)
+	{
+		ItemList.Add(apple);
+		Invoke("clearItemList", 5);
+	}
+
+	private void clearItemList()
+	{
+		ItemList.Clear();
+	}
+
+	public bool hasApple()
+	{
+		return ItemList.Count >= 1;
 	}
 }
