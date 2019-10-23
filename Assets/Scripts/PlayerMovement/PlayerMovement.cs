@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public float speed;
 
     private Rigidbody2D myRigidBody;
     private Vector3 change;
     private Animator animator;
 
+	private int health;
+
 	public GameObject crosshair;
 	public GameObject player;
+	public GameObject shootImage;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-    }
+		Cursor.visible = false;
+	}
 
     void Update()
     {
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         change.y = Input.GetAxisRaw("Vertical");
         UpdateAnimationAndMove();
 		Aim();
+		Shoot();
     }
 
     void UpdateAnimationAndMove()
@@ -53,6 +57,37 @@ public class PlayerMovement : MonoBehaviour
 
 	void Aim()
 	{
-		crosshair.transform = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+		Vector3 pz = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		pz.z = 0;
+		crosshair.transform.position = pz;
+	}
+
+	void Shoot()
+	{
+		Vector2 shootingDirection = crosshair.transform.localPosition;
+		shootingDirection.Normalize();
+
+		if(Input.GetMouseButtonDown(0))
+		{
+			GameObject bullet = Instantiate(shootImage, transform.position, Quaternion.identity);
+			bullet.GetComponent<Bullet>().sender = "Player";
+			bullet.GetComponent<Rigidbody2D>().velocity = shootingDirection * 6.0f;
+			bullet.transform.Rotate(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
+			Destroy(bullet, 2.0f);
+		}
+	}
+
+	public void hit(int damage)
+	{
+		health -= damage;
+		checkDestroy();
+	}
+
+	public void checkDestroy()
+	{
+		if (health <= 0)
+		{
+			Debug.Log("Player dead");
+		}
 	}
 }

@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Arrow
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3521903781
+    locked: 0
+  - name: arrow
+    uniqueID: 2568210639
     locked: 0
