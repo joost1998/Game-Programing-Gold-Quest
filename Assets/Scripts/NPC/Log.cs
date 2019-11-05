@@ -9,23 +9,13 @@ public class Log : AbNPC
 		this.stateMachine.RunMonoExecute();
 	}
 
-	void Sitting()
+	public void Sitting()
 	{
-
+		this.stateMachine.ChangeState(new Sitting(gameObject));
 	}
 
-	void Attacking()
+	public void Attacking()
 	{
-		if (target != null)
-		{
-			if (Vector3.Distance(target.transform.position, transform.position) <= 10 && Vector3.Distance(target.transform.position, transform.position) > 4)
-			{
-				transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 2 * Time.deltaTime);
-			}
-			else
-			{
-				transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.transform.position.x + 2, target.transform.position.x + -2), 2 * Time.deltaTime);
-			}
-		}
+		this.stateMachine.ChangeState(new Attacking(gameObject, target, shootPrefab));
 	}
 }

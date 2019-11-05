@@ -75,8 +75,7 @@ public class PlayerMovement : MonoBehaviour
 		if(Input.GetMouseButtonDown(0))
 		{
 			GameObject bullet = Instantiate(shootImage, transform.position, Quaternion.identity);
-			bullet.GetComponent<Bullet>().sender = "Player";
-			bullet.GetComponent<Bullet>().target = gameObject;
+			bullet.GetComponent<Bullet>().SetTarget(gameObject);
 			bullet.GetComponent<Rigidbody2D>().velocity = shootingDirection * 6.0f;
 			bullet.transform.Rotate(0, 0, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
 			Destroy(bullet, 2.0f);

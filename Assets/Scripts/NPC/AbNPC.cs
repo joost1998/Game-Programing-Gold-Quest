@@ -21,6 +21,8 @@ public abstract class AbNPC : MonoBehaviour
 	[NonSerialized]
 	public int Health;
 
+	public GameObject shootPrefab;
+
 	private void Start()
 	{
 		this.animator = GetComponent<Animator>();
@@ -28,14 +30,14 @@ public abstract class AbNPC : MonoBehaviour
 		this.Health = 100;
 	}
 
-	public void hit(int damage)
+	public void Hit(int damage)
 	{
 		//State = LogState.Attacking;
 		this.Health -= damage;
-		checkHealth();
+		CheckHealth();
 	}
 
-	public void checkHealth()
+	public void CheckHealth()
 	{
 		if (this.Health <= 0)
 		{
@@ -43,13 +45,8 @@ public abstract class AbNPC : MonoBehaviour
 		}
 	}
 
-	private void SetTarget(GameObject target)
+	public void SetTarget(GameObject target)
 	{
 		this.target = target;
-	}
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		SetTarget(collision.GetComponent<Bullet>().sender);
 	}
 }

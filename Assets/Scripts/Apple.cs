@@ -8,7 +8,10 @@ public class AppleItem : MonoBehaviour
 	{
 		if(other.gameObject.name.Contains("Player"))
 		{
-			other.GetComponent<PlayerMovement>().addAppleItem(gameObject);
+			foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Log"))
+			{
+				obj.GetComponent<Log>().Sitting();
+			}
 			Destroy(gameObject);
 		}
 	}
