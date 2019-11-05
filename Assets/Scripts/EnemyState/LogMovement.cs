@@ -6,21 +6,24 @@ using UnityEngine;
 public class LogMovement : MonoBehaviour
 {
 	//Private local vars
-	public GameObject target;
+	private ParticleSystem ps;
 	private float chaseRadius;
 	private float attackRadius;
 	private int health;
 	private LogState State;
-	private float timerSpeed = 0.5F;
-	private int frames = 0;
+	private float timerSpeed;
+	private Animation an;
 
 	//Public vars for Unity
+	public GameObject target;
 	public GameObject shootImage;
+	public AnimationClip clip;
 
 	private void Awake()
 	{
+		timerSpeed = 2.5F;
 		InvokeRepeating("Shoot", timerSpeed, timerSpeed);
-		InvokeRepeating("Attacking", 5f, 5f);
+		InvokeRepeating("Attacking", 6f, 6f);
 	}
 
 	//MonoBehaviour standard function - Sets and create vars
@@ -31,29 +34,49 @@ public class LogMovement : MonoBehaviour
 		attackRadius = 4;
 		health = 40;
 		State = LogState.Sitting;
-    }
+
+		ps = GetComponent<ParticleSystem>();
+		an = GetComponent<Animation>();
+
+		State = LogState.Sitting;
+	}
 
 	//MonoBehaviour standard function - state switch - call the right functions for that state
     void Update()
     {
 		switch(State)
 		{
-			case LogState.Attacking:
-				Attacking();
+			case LogState.Sitting:
+				Sitting();
 				break;
+
+			case LogState.Attacking:
+				Walking();
+				break;
+
 			case LogState.Loving:
 				Loving();
 				break;
 		}
     }
 
+	void Sitting()
+	{
+		//an.clip = clip;
+		//an.Play();
+	}
+
 	//STATE: ATTACKING - Walk towards the attacker
-	void Attacking()
+	void Walking()
 	{
 		if (target != null) {
 			if (Vector3.Distance(target.transform.position, transform.position) <= chaseRadius && Vector3.Distance(target.transform.position, transform.position) > attackRadius)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 2 * Time.deltaTime);
+			}
+			else
+			{
+				transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.transform.position.x + 2, target.transform.position.x + -2), 2 * Time.deltaTime);
 			}
 		}
 	}
@@ -84,7 +107,7 @@ public class LogMovement : MonoBehaviour
 	//STATE: LOVING - Targets other logs because player has a apple
 	public void Loving()
 	{
-
+		
 	}
 
 	//NO-STATE: Called by an extern Script
@@ -92,6 +115,7 @@ public class LogMovement : MonoBehaviour
 	{
 		State = LogState.Attacking;
 		health -= damage;
+		//ps.Play();
 		//Call the health check function
 		checkHealth();
 	}
