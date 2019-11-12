@@ -6,14 +6,18 @@ public class Sitting : IState
 {
 	GameObject obj;
 
-	public Sitting(GameObject obj)
+	Animator animator;
+
+	public Sitting(GameObject obj, Animator animator)
 	{
 		this.obj = obj;
+		this.animator = animator;
 	}
 
 	public void Enter()
 	{
-		
+		//animator.SetBool("wakeUp", false);
+		obj.GetComponent<Animator>().SetBool("wakeUp", false);
 	}
 
 	public void Execute()
@@ -23,6 +27,6 @@ public class Sitting : IState
 
 	public void Exit()
 	{
-		
+		obj.GetComponent<Animator>().SetBool("wakeUp", true);
 	}
 }

@@ -23,16 +23,8 @@ public abstract class AbNPC : MonoBehaviour
 
 	public GameObject shootPrefab;
 
-	private void Start()
-	{
-		this.animator = GetComponent<Animator>();
-
-		this.Health = 100;
-	}
-
 	public void Hit(int damage)
 	{
-		//State = LogState.Attacking;
 		this.Health -= damage;
 		CheckHealth();
 	}

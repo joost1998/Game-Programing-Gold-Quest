@@ -15,13 +15,14 @@ public class Attacking : IState
 
 	public void Enter()
 	{
-		
+		obj.GetComponent<Animator>().SetBool("wakeUp", true);
 	}
 
 	public void Execute()
-	{
+	{	
 		Shoot();
 		Walk();
+		Debug.Log("Attacking");
 	}
 
 	public void Exit()
