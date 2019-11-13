@@ -1,8 +1,4 @@
-﻿/*
- *	Used Bron To Create This State Machine: https://www.youtube.com/watch?v=D6hAftj3AgM
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +9,6 @@ public abstract class AbNPC : MonoBehaviour
 	public StateMachineBehaviour stateMachine = new StateMachineBehaviour();
 
 	[NonSerialized]
-	public Animator animator;
-
-	[NonSerialized]
 	public GameObject target;
 
 	[NonSerialized]
@@ -23,13 +16,15 @@ public abstract class AbNPC : MonoBehaviour
 
 	public GameObject shootPrefab;
 
+	//Remove the damage from the health
 	public void Hit(int damage)
 	{
 		this.Health -= damage;
 		CheckHealth();
 	}
 
-	public void CheckHealth()
+	//Check if a Log have enough health
+	private void CheckHealth()
 	{
 		if (this.Health <= 0)
 		{
@@ -37,6 +32,7 @@ public abstract class AbNPC : MonoBehaviour
 		}
 	}
 
+	//Set the target of the Log
 	public void SetTarget(GameObject target)
 	{
 		this.target = target;

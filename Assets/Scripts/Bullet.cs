@@ -8,30 +8,33 @@ public class Bullet : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other != null)
-		{
-			if (target.name == "Player" && other.name.Contains("NPC Log") && target != null)
+		try { 
+			//True if the player hits a Log (Enemy)
+			if (target.name.Contains("Player") && other.name.Contains("NPC Log"))
 			{
 				other.GetComponent<Log>().SetTarget(target);
-				other.GetComponent<Log>().Hit(10);
 				other.GetComponent<Log>().Attacking();
+				other.GetComponent<Log>().Hit(10);
 				Destroy(gameObject);
 			}
-			else if (target.name.Contains("Log") && other.name.Contains("Player") && target != null)
+			//True if a Log hits the Player
+			else if (target.name.Contains("Log") && other.name.Contains("Player"))
 			{
 				other.GetComponent<PlayerMovement>().hit(10);
 				Destroy(gameObject);
 			}
-			else if (target.name.Contains("Log") && other.name.Contains("NPC Log") && target != other.gameObject && target != null)
+			//True if a Log hits an other Log
+			else if (target.name.Contains("Log") && other.name.Contains("NPC Log") && target != other.gameObject)
 			{
 				other.GetComponent<Log>().SetTarget(target);
-				other.GetComponent<Log>().Hit(5);
 				other.GetComponent<Log>().Attacking();
+				other.GetComponent<Log>().Hit(5);
 				Destroy(gameObject);
 			}
-		}
+		} catch(MissingReferenceException e) {}
 	}
 
+	//Set the target, in this case the sender of the bullet
 	public void SetTarget(GameObject target)
 	{
 		this.target = target;
