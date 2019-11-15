@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5451047146900108551}
   - component: {fileID: 5451047146900108550}
   - component: {fileID: 5451047146900108549}
+  - component: {fileID: 2547655015561648498}
   - component: {fileID: 5451047146900108548}
   - component: {fileID: 5451047146900108547}
   - component: {fileID: 5451047146900108545}
@@ -152,6 +153,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.7955873, y: 1.378139}
+  m_EdgeRadius: 0
+--- !u!61 &2547655015561648498
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451047146900108544}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.013443589, y: -0.0721159}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.8820755, y: 2.547533}
   m_EdgeRadius: 0
 --- !u!198 &5451047146900108548
 ParticleSystem:
@@ -720,10 +747,10 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    randomizeRotationDirection: 0
+    randomizeRotationDirection: 0.41
     maxNumParticles: 1000
     size3D: 0
-    rotation3D: 0
+    rotation3D: 1
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
@@ -4858,7 +4885,7 @@ ParticleSystemRenderer:
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
-  m_SortingFudge: 0
+  m_SortingFudge: -100
   m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 0

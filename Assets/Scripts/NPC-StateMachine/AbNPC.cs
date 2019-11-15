@@ -23,6 +23,12 @@ public abstract class AbNPC : MonoBehaviour
 		CheckHealth();
 	}
 
+	//Add health function
+	public void addHealth(int health)
+	{
+		this.Health += health;
+	}
+
 	//Check if a Log have enough health
 	private void CheckHealth()
 	{

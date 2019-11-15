@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 	{
 		try { 
 			//True if the player hits a Log (Enemy)
-			if (target.name.Contains("Player") && other.name.Contains("NPC Log"))
+			if (target.name.Contains("Player") && other.name.Contains("NPC Log") && !other.isTrigger)
 			{
 				other.GetComponent<Log>().SetTarget(target);
 				other.GetComponent<Log>().Attacking();
@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 				Destroy(gameObject);
 			}
 			//True if a Log hits an other Log
-			else if (target.name.Contains("Log") && other.name.Contains("NPC Log") && target != other.gameObject)
+			else if (target.name.Contains("Log") && other.name.Contains("NPC Log") && target != other.gameObject && !other.isTrigger)
 			{
 				other.GetComponent<Log>().SetTarget(target);
 				other.GetComponent<Log>().Attacking();

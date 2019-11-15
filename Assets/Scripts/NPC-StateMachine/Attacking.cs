@@ -69,12 +69,12 @@ public class Attacking : IState
 			//Walk to the Target
 			if (Vector3.Distance(target.transform.position, obj.transform.position) <= 10 && Vector3.Distance(target.transform.position, obj.transform.position) > 4)
 			{
-				obj.transform.position = Vector3.MoveTowards(obj.transform.position, target.transform.position, 2 * Time.deltaTime);
+				obj.transform.position = Vector3.MoveTowards(obj.transform.position, target.transform.position, 1 * Time.deltaTime);
 			}
 			else
 			{
 				//If target is close: keep moving
-				obj.transform.position = Vector3.MoveTowards(obj.transform.position, new Vector3(target.transform.position.x + 2, target.transform.position.x + -2), 2 * Time.deltaTime);
+				obj.transform.position = Vector3.MoveTowards(obj.transform.position, new Vector3(target.transform.position.x + 2, target.transform.position.x + -2), 1 * Time.deltaTime);
 			}
 		}
 	}

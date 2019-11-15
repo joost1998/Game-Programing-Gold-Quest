@@ -9,6 +9,9 @@ public class Log : AbNPC
 		//Set Health of the Log;
 		this.Health = 100;
 
+		//Stop NPC Particle system
+		GetComponent<ParticleSystem>().Stop();
+
 		//Set the state to Sitting (Sleeping);
 		Sitting();
 	}
@@ -29,5 +32,21 @@ public class Log : AbNPC
 	public void Attacking()
 	{
 		this.stateMachine.ChangeState(new Attacking(gameObject, target, shootPrefab));
+	}
+
+	//Set the state to Sitting (Sleeping);
+	public void Breeding()
+	{
+		this.stateMachine.ChangeState(new Breeding(gameObject));
+	}
+
+	//Triggers if the state is Sitting and touches an other log
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.isTrigger && other.name.Contains("Log") && stateMachine.GetCurrentState().ToString().Equals("Sitting"))
+		{
+			//Set this NPC to state Breeding
+			Breeding();
+		}
 	}
 }

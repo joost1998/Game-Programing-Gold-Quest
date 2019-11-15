@@ -5,28 +5,31 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
+	//Initialize private vars
+	Rigidbody2D myRigidBody;
+    Vector3 change;
+    Animator animator;
 
-    private Rigidbody2D myRigidBody;
-    private Vector3 change;
-    private Animator animator;
+	int health;
 
-	private int health;
+	//Initialize public vars
+	public float speed;
 
 	public GameObject crosshair;
 
 	public GameObject player;
 	public GameObject shootImage;
 
-	public IList<GameObject> ItemList;
-
     void Start()
     {
 		//Set the variables 
 		animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-		ItemList = new List<GameObject>();
+
+		//Set cursor invisble to replace with other image
 		Cursor.visible = false;
+
+		//Set Player Health
 		health = 100;
 	}
 
@@ -62,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+	//Move character to input position
     void MoveCharacter()
     {
         myRigidBody.MovePosition(
@@ -69,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+	//Set given image to cursor position
 	void Aim()
 	{
 		//Move the shoot image to cursor position
@@ -111,25 +116,5 @@ public class PlayerMovement : MonoBehaviour
 			Debug.Log("Player dead");
 			gameObject.SetActive(false);
 		}
-	}
-
-	//Add a apple
-	public void addAppleItem(GameObject apple)
-	{
-		ItemList.Add(apple);
-		//Player is a god for 5 seconds
-		Invoke("clearItemList", 5);
-	}
-
-	//Clear the ItemList
-	private void clearItemList()
-	{
-		ItemList.Clear();
-	}
-
-	//Simple return true,false
-	public bool hasApple()
-	{
-		return ItemList.Count >= 1;
 	}
 }
